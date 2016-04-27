@@ -4,7 +4,7 @@ import os
 import mysql.connector
 def main():
     # connect to database and create cursor object
-    conn = mysql.connector.connect(user='hshifer1', password='finley920m,.', host='localhost', database='hshifer1')
+    conn = mysql.connector.connect(user='hshifer1', password=PASSWORDHERE, host='localhost', database='hshifer1')
     curs = conn.cursor()
 
     print("Content-Type: application/json\n\n")
