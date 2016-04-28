@@ -41,7 +41,7 @@ Tools were ran on the unix server through python scripts: ORF_Finder.py, blast_s
 
 ————————————————————-
 HARDWARE REQUIREMENTS
-—————————————————————
+——————————————————---
 
 Recommended you have 1gb of hard drive space to download folder
 
