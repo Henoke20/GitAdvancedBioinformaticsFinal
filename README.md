@@ -36,11 +36,13 @@ https://code.google.com/p/biopieces/
 —————————————————
 IMPLEMENTATION
 —————————————————
+
 Tools were ran on the unix server through python scripts: ORF_Finder.py, blast_search.py. Which ran the biopieces tools and stored them in tables on a MySQL Server. The site thus accesses prerun data from the MYSQL Server and displays it.
 
 ————————————————————-
 HARDWARE REQUIREMENTS
 —————————————————————
+
 Recommended you have 1gb of hard drive space to download folder
 
 
