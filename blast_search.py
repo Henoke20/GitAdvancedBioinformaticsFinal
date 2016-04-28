@@ -1,4 +1,11 @@
 #!/usr/local/bin/python3
+'''
+Author: Henoke Shiferaw
+
+This script runs the blast tool that is part of the biopieces toolset. FASTA datasets sampled 
+from 5 organisms were used in running the blast_seq tool. Results are then written to MySQL Database.
+'''
+
 import cgi, json
 import os
 import mysql.connector
@@ -14,13 +21,16 @@ def main():
     organism = ["Athaliana", "btaurus", "dmel", "ecoli", "human"]
     ids = [100005, 100084, 100412, 100473, 100772]
     idindex=0
+    
+    #Run blast_seq on all 5 fastafiles and store results in res.txt
     for org in organism:
         command = 'read_fasta -i {0}sec.txt | blast_seq -d ./files/dbs/{0}.fna -O res.txt'.format(org)
         os.system(command)
+        
         # parse results file
         file = open("res.txt")
-
-        #os.system("python3 dog.py")
+        
+        
         results = {'orf_matches': list()}
         entries = 0
         while entries < 5:
@@ -31,15 +41,15 @@ def main():
                     temp.append(x.strip())
                     #print(x.strip())
                     x=file.readline() 
-                strand=temp[0][8:]
-                q_ID=temp[1][6:]
-                s_ID=temp[3][6:]
-                identity=temp[5][7:]
-                e_val=temp[6][7:]
-                s_beg=temp[7][7:]
-                q_beg=temp[8][7:]
-                q_end=temp[11][7:]
-                s_end=temp[13][7:]
+                strand=temp[0][8:] # Full DNA Sequence
+                q_ID=temp[1][6:] #Query ID
+                s_ID=temp[3][6:] # Subject ID
+                identity=temp[5][7:] # Identity percentage
+                e_val=temp[6][7:] # E value
+                s_beg=temp[7][7:] # Beginning location of Subject strand
+                q_beg=temp[8][7:] #Beginning location of query strand
+                q_end=temp[11][7:] #End location of query strand
+                s_end=temp[13][7:] # End location of subject strand
                 ##query
                 qry = '''INSERT INTO BLAST_SEQS (entry_ID,strand, subject_ID, subject_beginning, subject_end, query_ID, query_Beginning, query_END, Identity, e_value) VALUES (%s,%s,%s,%s,%s,
                        %s,%s,%s,%s,%s);'''
