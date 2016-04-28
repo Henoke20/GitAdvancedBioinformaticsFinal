@@ -2,6 +2,12 @@
 import cgi, json
 import os
 import mysql.connector
+'''
+Runs the find_orfs tool from Biopieces tool. FASTA files were stored in a seperate folder
+and are just samples from the genomes of 5 organisms. Results were stored in a text file and 
+parsed. Parsed sections are then written into a MySQL database.
+'''
+
 def main():
     # connect to database and create cursor object
     conn = mysql.connector.connect(user='hshifer1', password=PASSWORDHERE, host='localhost', database='hshifer1')
@@ -11,6 +17,8 @@ def main():
     form = cgi.FieldStorage()
     term = form.getvalue('search_term')
     
+    # Runs find_orfs tool from each sequence file, stores it to results.txt
+    # and then parses file to store in database.
     organism = ["Athaliana", "btaurus", "dmel", "ecoli", "human"]
     IDs = 100000
     for org in organism:
@@ -19,9 +27,7 @@ def main():
         # parse results file
         file = open("results.txt")
 
-        #os.system("python3 dog.py")
-
-        #file = open("./files/results.txt")
+       
         results = {'orf_matches': list()}
         for x in file:
             if x.startswith("REC_TYPE"):
